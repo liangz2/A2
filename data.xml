@@ -1,0 +1,61 @@
+<network nodes="2">
+    <grid>0.1m</grid>
+    <channel>
+        <shadowing bn="-110.0dBm" syncbits="8">
+		RP(d) = received power at distance d
+		XP    = transmitted power
+		X     = lognormal random Gaussian component
+ 		=======================================================
+		RP(d)/XP [dB] = -10 x 3.0 x log(d/1.0m) + X(1.0) - 38.0
+ 		=======================================================
+	</shadowing>
+	<cutoff>-140.0dBm</cutoff>
+	<ber>
+		Interpolated ber table:
+		======================
+		  SIR		  BER
+		50.0dB		1.0E-6
+		40.0dB		2.0E-6
+		30.0dB		5.0E-6
+		20.0dB		1.0E-5
+		10.0dB		1.0E-4
+		 5.0dB		1.0E-3
+		 2.0dB		1.0E-1
+		 0.0dB		2.0E-1
+		-2.0dB		5.0E-1
+		-5.0dB		9.9E-1
+	</ber>
+	<frame>12 0</frame>
+	<rates>9600</rates>
+	<power>10.0dBm</power>
+    </channel>
+    <nodes>
+	<defaults>
+	    <memory>2048 bytes</memory>
+	    <radio>
+	    	<preamble>32 bits</preamble>
+	    	<lbt>
+			delay			8msec
+			threshold		-109.0dBm
+	    	</lbt>
+	    	<backoff>
+			min			8msec
+			max			303msec
+	    	</backoff>
+	    </radio>
+	    <uart rate="9600" bsize="12">
+		<input source="socket"></input>
+		<output target="socket" type="held"></output>
+	    </uart>
+	    <leds number = "3">
+	        <output target = "socket"></output>
+	    </leds>
+	</defaults>
+	<node number="0">
+	    <location>1.0 4.0</location>
+	</node>
+	<node number="1">
+	    <location>1.0 10.0</location>
+	</node>
+    </nodes>
+</network>
